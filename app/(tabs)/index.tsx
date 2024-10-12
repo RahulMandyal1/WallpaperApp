@@ -1,70 +1,103 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from "react";
+import { Link } from "expo-router";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  ListRenderItem,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+// Define the wallpaper item type
+interface Wallpaper {
+  id: string;
+  url: string;
+  title: string;
+}
+
+const wallpapers: Wallpaper[] = [
+  {
+    id: "1",
+    url: "https://plus.unsplash.com/premium_photo-1728510320088-0b89856e726e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 1",
+  },
+  {
+    id: "2",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 2",
+  },
+];
+
+const { width } = Dimensions.get("window");
 
 export default function HomeScreen() {
+  // Type the item as Wallpaper
+  const renderWallpaperItem: ListRenderItem<Wallpaper> = ({ item }) => (
+    <TouchableOpacity style={styles.wallpaperContainer}>
+      <Image
+        source={{ uri: item.url }}
+        style={styles.wallpaper}
+        width={100}
+        height={100}
+      />
+      <Text style={styles.wallpaperTitle}>{item.title}</Text>
+    </TouchableOpacity>
+  );
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Browse Wallpapers</Text>
+        <FlatList
+          data={wallpapers}
+          keyExtractor={(item) => item.id}
+          renderItem={renderWallpaperItem}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          showsVerticalScrollIndicator={false}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#f0f0f0",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  container: {
+    flex: 1,
+    padding: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
+  },
+  row: {
+    justifyContent: "space-between",
+  },
+  wallpaperContainer: {
+    marginBottom: 20,
+    width: (width - 30) / 2,
+  },
+  wallpaper: {
+    height: 200,
+    width: "100%",
+    borderRadius: 10,
+  },
+  wallpaperTitle: {
+    marginTop: 5,
+    fontSize: 14,
+    textAlign: "center",
+    color: "#666",
   },
 });
+``;
