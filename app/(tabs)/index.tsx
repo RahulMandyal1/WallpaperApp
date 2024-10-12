@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "expo-router";
 import {
   View,
   Text,
@@ -30,6 +29,37 @@ const wallpapers: Wallpaper[] = [
     url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Wallpaper 2",
   },
+  {
+    id: "3",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 3",
+  },
+  {
+    id: "4",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 4",
+  },
+  {
+    id: "5",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 5",
+  },
+  {
+    id: "6",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 5",
+  },
+
+  {
+    id: "7",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 5",
+  },
+  {
+    id: "8",
+    url: "https://images.unsplash.com/photo-1720048170970-3848514c3d60?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Wallpaper 5",
+  },
 ];
 
 const { width } = Dimensions.get("window");
@@ -38,13 +68,7 @@ export default function HomeScreen() {
   // Type the item as Wallpaper
   const renderWallpaperItem: ListRenderItem<Wallpaper> = ({ item }) => (
     <TouchableOpacity style={styles.wallpaperContainer}>
-      <Image
-        source={{ uri: item.url }}
-        style={styles.wallpaper}
-        width={100}
-        height={100}
-      />
-      <Text style={styles.wallpaperTitle}>{item.title}</Text>
+      <Image source={{ uri: item.url }} style={styles.wallpaper} />
     </TouchableOpacity>
   );
 
@@ -56,7 +80,7 @@ export default function HomeScreen() {
           data={wallpapers}
           keyExtractor={(item) => item.id}
           renderItem={renderWallpaperItem}
-          numColumns={2}
+          numColumns={3}
           columnWrapperStyle={styles.row}
           showsVerticalScrollIndicator={false}
         />
@@ -82,14 +106,14 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   row: {
-    justifyContent: "space-between",
+    marginBottom: 20,
+    gap: 10,
   },
   wallpaperContainer: {
-    marginBottom: 20,
-    width: (width - 30) / 2,
+    width: (width - 40) / 3, // 3 items in the row
   },
   wallpaper: {
-    height: 200,
+    height: 150,
     width: "100%",
     borderRadius: 10,
   },
@@ -100,4 +124,3 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 });
-``;
