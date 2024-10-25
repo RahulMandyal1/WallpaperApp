@@ -1,7 +1,7 @@
 import React from "react";
+import { Drawer } from "expo-router/drawer";
 import {
   View,
-  Text,
   FlatList,
   Image,
   TouchableOpacity,
@@ -9,7 +9,7 @@ import {
   Dimensions,
   ListRenderItem,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { DrawerToggleButton } from "@react-navigation/drawer";
 
 // Define the wallpaper item type
 interface Wallpaper {
@@ -73,9 +73,15 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
+      <Drawer.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Home",
+          headerLeft: () => <DrawerToggleButton />,
+        }}
+      />
       <View style={styles.container}>
-        <Text style={styles.title}>Browse Wallpapers</Text>
         <FlatList
           data={wallpapers}
           keyExtractor={(item) => item.id}
@@ -85,18 +91,15 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
         />
       </View>
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f0f0f0",
-  },
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: "#f0f0f0",
   },
   title: {
     fontSize: 24,
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   wallpaperContainer: {
-    width: (width - 40) / 3, // 3 items in the row
+    width: (width - 40) / 2, //
   },
   wallpaper: {
     height: 150,
