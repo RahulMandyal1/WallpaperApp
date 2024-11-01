@@ -11,6 +11,8 @@ import {
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { Wallpaper, wallpapers } from "@/data/wallpaper-data";
+import { ThemedText } from "@/components/ThemedText";
+import MonthlyShowcase from "@/app/components/MonthlyShowcase";
 
 const columnGap = 10;
 
@@ -50,6 +52,7 @@ export default function HomeScreen() {
           headerLeft: () => <DrawerToggleButton />,
         }}
       />
+      <MonthlyShowcase />
       <View style={styles.container}>
         <MasonryFlashList
           showsVerticalScrollIndicator={false}
