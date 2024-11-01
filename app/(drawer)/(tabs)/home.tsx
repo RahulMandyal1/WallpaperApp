@@ -13,36 +13,10 @@ import { MasonryFlashList } from "@shopify/flash-list";
 import { Wallpaper, wallpapers } from "@/data/wallpaper-data";
 import { ThemedText } from "@/components/ThemedText";
 import MonthlyShowcase from "@/app/components/MonthlyShowcase";
-
-const columnGap = 10;
+import CategoriesList from "@/app/components/CategoriesList";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
-  const renderWallpaperItem: ListRenderItem<Wallpaper> = useCallback(
-    ({ item, index }) => {
-      const imageHeight = Math.floor(Math.random() * 100) + 180;
-      const isLeftColumn = index % 2 === 0;
-
-      return (
-        <TouchableOpacity>
-          <Image
-            source={{ uri: item.url }}
-            style={[
-              {
-                height: imageHeight,
-                width: "100%",
-                borderRadius: 10,
-                marginLeft: isLeftColumn ? 0 : columnGap,
-                marginRight: isLeftColumn ? columnGap : 0,
-                marginBottom: 10,
-              },
-            ]}
-          />
-        </TouchableOpacity>
-      );
-    },
-    []
-  );
-
   return (
     <>
       <Drawer.Screen
@@ -52,17 +26,10 @@ export default function HomeScreen() {
           headerLeft: () => <DrawerToggleButton />,
         }}
       />
-      <MonthlyShowcase />
-      <View style={styles.container}>
-        <MasonryFlashList
-          showsVerticalScrollIndicator={false}
-          data={wallpapers}
-          keyExtractor={(item) => item.id}
-          renderItem={renderWallpaperItem}
-          numColumns={2}
-          estimatedItemSize={200}
-        />
-      </View>
+      <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
+        <MonthlyShowcase />
+        <CategoriesList />
+      </ScrollView>
     </>
   );
 }
