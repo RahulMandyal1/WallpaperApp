@@ -16,6 +16,7 @@ interface ThemedTextProps extends TextProps {
   lightColor?: string;
   darkColor?: string;
   variant?: keyof typeof TEXT_VARIANTS;
+  fontSize?: number;
 }
 
 export function ThemedText({
@@ -23,6 +24,7 @@ export function ThemedText({
   lightColor,
   darkColor,
   variant = TEXT_VARIANT.DEFAULT,
+  fontSize,
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
@@ -37,7 +39,10 @@ export function ThemedText({
 
   if (!fontsLoaded) return null;
 
-  const combinedStyle = StyleSheet.flatten([{ color }, TEXT_VARIANTS[variant]]);
+  const combinedStyle = StyleSheet.flatten([
+    { color, fontSize },
+    TEXT_VARIANTS[variant],
+  ]);
 
   return <Text style={combinedStyle} {...rest} />;
 }
